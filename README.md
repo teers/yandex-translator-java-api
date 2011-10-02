@@ -2,9 +2,10 @@
 * * *
 
 Provides a Java wrapper around the Apertium machine translation web service API. 
+
 Currently, only the service for translating a single string is implemented in this API. The translate service is not implemented for an array of strings, and the listPairs service is not implemented.
 
-This project was based on the microsoft-translator-java-api project by Jonathan Griggs.
+This project was forked from the microsoft-translator-java-api project by Jonathan Griggs.
 
 ## Requires
 
