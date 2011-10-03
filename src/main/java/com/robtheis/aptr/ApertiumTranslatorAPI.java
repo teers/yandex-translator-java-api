@@ -98,10 +98,7 @@ public abstract class ApertiumTranslatorAPI {
    */
   protected static String retrieveString(final URL url) throws Exception {
     try {
-      final String response = retrieveResponse(url);
-      
-      System.out.println("RESPONSE: " + response);
-      
+      final String response = retrieveResponse(url);      
       return jsonToString(response);
     } catch (Exception ex) {
       throw new Exception("[apertium-translator-api] Error retrieving translation : " + ex.getMessage(), ex);
