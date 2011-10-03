@@ -23,10 +23,10 @@ package com.robtheis.aptr.language;
  */
 public enum Language {
   ASTURIAN("ast"),
-  BASQUE("EU"),
+  BASQUE("eu"),
   BRETONA("br"),
   BULGARIAN("bg"),
-  CATALAN("CA"),
+  CATALAN("ca"),
   DANISH("da"),
   ENGLISH("en"),
   ESPERANTO("eo"),
