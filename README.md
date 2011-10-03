@@ -11,6 +11,25 @@ This project was forked from the microsoft-translator-java-api project by Jonath
 
 * An Apertium API Key - [Sign Up Here](http://api.apertium.org/register.jsp)
 
+Quickstart
+==========
+
+Download the latest [JAR with Dependencies](https://github.com/downloads/rmtheis/apertium-translator-java-api/apertium-translator-java-api-0.1-jar-with-dependencies.jar)
+
+    import com.robtheis.aptr.language.Language;
+    import com.robtheis.aptr.translate.Translate;
+
+    public class Main {
+      public static void main(String[] args) throws Exception {
+        // Set the Apertium API Key - Get yours at http://api.apertium.org/register.jsp
+        Translate.setKey("KMZfX32tsIPfivsByUexr84f08Y");
+
+        String translatedText = Translate.execute("Hola, mundo!", Language.SPANISH, Language.ENGLISH);
+
+        System.out.println(translatedText);
+      }
+    }
+
 License
 =======
 
