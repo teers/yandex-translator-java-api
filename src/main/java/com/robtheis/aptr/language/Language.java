@@ -24,7 +24,7 @@ package com.robtheis.aptr.language;
 public enum Language {
   ASTURIAN("ast"),
   BASQUE("eu"),
-  BRETONA("br"),
+  BRETON("br"),
   BULGARIAN("bg"),
   CATALAN("ca"),
   DANISH("da"),
