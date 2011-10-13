@@ -54,7 +54,7 @@ public final class Translate extends ApertiumTranslatorAPI {
       + PARAM_TEXT + URLEncoder.encode(text,ENCODING);
     final URL url = new URL(SERVICE_URL + params);
     final String response = retrieveSubObjString(url, RESPONSE_LABEL, TRANSLATION_LABEL);    
-    return response;
+    return response.trim();
   }
 
   private static void validateServiceState(final String text) throws Exception {
