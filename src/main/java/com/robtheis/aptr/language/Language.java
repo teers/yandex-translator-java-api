@@ -22,6 +22,7 @@ package com.robtheis.aptr.language;
  * Language - an enum of language codes supported by the Apertium API
  */
 public enum Language {
+  ARAGONESE("an"),
   ASTURIAN("ast"),
   BASQUE("eu"),
   BRETON("br"),
