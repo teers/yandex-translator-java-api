@@ -14,7 +14,7 @@ This project was forked from the microsoft-translator-java-api project by Jonath
 Quickstart
 ==========
 
-Download the latest [JAR with Dependencies](https://github.com/downloads/rmtheis/apertium-translator-java-api/apertium-translator-java-api-0.1-jar-with-dependencies.jar)
+Download the latest [JAR with Dependencies](https://github.com/downloads/rmtheis/apertium-translator-java-api/apertium-translator-java-api-0.2-jar-with-dependencies.jar)
 
     import com.robtheis.aptr.language.Language;
     import com.robtheis.aptr.translate.Translate;
