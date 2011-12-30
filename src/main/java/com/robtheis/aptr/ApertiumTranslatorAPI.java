@@ -72,7 +72,6 @@ public abstract class ApertiumTranslatorAPI {
     uc.setRequestProperty("Content-Type","text/plain; charset=" + ENCODING);
     uc.setRequestProperty("Accept-Charset",ENCODING);
     uc.setRequestMethod("GET");
-    uc.setDoOutput(true);
 
     try {
       final int responseCode = uc.getResponseCode();
@@ -82,9 +81,8 @@ public abstract class ApertiumTranslatorAPI {
       }
       return result;
     } finally { 
-      uc.getInputStream().close();
-      if (uc.getErrorStream() != null) {
-        uc.getErrorStream().close();
+      if(uc!=null) {
+        uc.disconnect();
       }
     }
   }
@@ -137,7 +135,8 @@ public abstract class ApertiumTranslatorAPI {
    */
   protected static String retrieveSubObjString(final URL url, final String jsonProperty, final String jsonSubObjProperty) throws Exception {
     try {
-      final String response = retrieveResponse(url);    
+      final String response = retrieveResponse(url);
+      //System.out.println("response: " + response);
       return jsonSubObjToString(response, jsonProperty, jsonSubObjProperty);
     } catch (Exception ex) {
       throw new Exception("[apertium-translator-api] Error retrieving translation.", ex);
