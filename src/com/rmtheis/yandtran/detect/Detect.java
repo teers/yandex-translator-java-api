@@ -24,8 +24,6 @@ import com.rmtheis.yandtran.language.Language;
 import com.rmtheis.yandtran.translate.Translate;
 
 /**
- * Detect 
- * 
  * Provides an interface to the Yandex Translator Detect service method
  */
 public final class Detect extends YandexTranslatorAPI {
@@ -48,7 +46,6 @@ public final class Detect extends YandexTranslatorAPI {
 	        PARAM_API_KEY + URLEncoder.encode(apiKey,ENCODING) 
 	        + PARAM_TEXT + URLEncoder.encode(text,ENCODING);
 	    final URL url = new URL(SERVICE_URL + params);
-	    //System.out.println("url: " + url.toString());
       return Language.fromString(retrievePropString(url, DETECTION_LABEL));
 	  }
         

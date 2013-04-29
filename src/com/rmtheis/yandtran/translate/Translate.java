@@ -49,7 +49,6 @@ public final class Translate extends YandexTranslatorAPI {
         + PARAM_LANG_PAIR + URLEncoder.encode(from.toString(),ENCODING) + URLEncoder.encode("-",ENCODING) + URLEncoder.encode(to.toString(),ENCODING) 
         + PARAM_TEXT + URLEncoder.encode(text,ENCODING);
     final URL url = new URL(SERVICE_URL + params);
-    //System.out.println("url: " + url.toString());
     return retrievePropArrString(url, TRANSLATION_LABEL).trim();
   }
 

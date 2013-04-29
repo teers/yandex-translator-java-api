@@ -50,15 +50,15 @@ public abstract class YandexTranslatorAPI {
   }
 
   /**
-   * Sets the HTTP referrer field.
+   * Sets the referrer field.
    * @param pKey The referrer.
    */
-  public static void setHttpReferrer(final String pReferrer) {
+  public static void setReferrer(final String pReferrer) {
     referrer = pReferrer;
   }
 
   /**
-   * Forms an HTTP request, sends it using GET method and returns the result of the request as a String.
+   * Forms an HTTPS request, sends it using GET method and returns the result of the request as a String.
    * 
    * @param url The URL to query for a String response.
    * @return The translated String.
@@ -87,101 +87,21 @@ public abstract class YandexTranslatorAPI {
   }
 
   /**
-   * Fetches the JSON response, parses the JSON Response, returns the result of the request as a String.
-   * 
-   * @param url The URL to query for a String response.
-   * @return The translated String.
-   * @throws Exception on error.
+   * Forms a request, sends it using the GET method and returns the value with the given label from the
+   * resulting JSON response.
    */
-  protected static String retrieveString(final URL url) throws Exception {
-    try {
-      final String response = retrieveResponse(url);      
-      return jsonToString(response);
-    } catch (Exception ex) {
-      throw new Exception("[yandex-translator-api] Error retrieving translation : " + ex.getMessage(), ex);
-    }
-  }
-
-  /**
-   * Fetches the JSON response, parses the JSON Response as an Array of JSONObjects,
-   * retrieves the String value of the specified JSON Property, and returns the result of 
-   * the request as a String Array.
-   * 
-   * @param url The URL to query for a String response.
-   * @param jsonProperty The JSON Property (key) for which we want a String Array
-   * @return The translated String[].
-   * @throws Exception on error.
-   */
-  protected static String[] retrieveStringArr(final URL url, final String jsonProperty) throws Exception {
-    try {
-      final String response = retrieveResponse(url);    
-      return jsonArrToStringArr(response,jsonProperty);
-    } catch (Exception ex) {
-      throw new Exception("[yandex-translator-api] Error retrieving translation.", ex);
-    }
-  }
-
-  /**
-   * Fetches the JSON response, parses the JSON Response an an Array of JSONObjects,
-   * parses the specified JSON Property as a JSON Object, and returns the String result
-   * of the value for the given JSON Property in the nested object.
-   * 
-   * @param url The URL to query for a String response.
-   * @param jsonProperty The JSON Property (key) indicating the object we want to parse.
-   * @param jsonSubObjProperty The JSON Property, in the nested object, that we want the value of.
-   * @return The translated String.
-   * @throws Exception on error.
-   */
-  protected static String retrieveSubObjString(final URL url, final String jsonProperty, final String jsonSubObjProperty) throws Exception {
-    try {
-      final String response = retrieveResponse(url);
-      System.out.println("response: " + response);
-      return jsonSubObjToString(response, jsonProperty, jsonSubObjProperty);
-    } catch (Exception ex) {
-      throw new Exception("[yandex-translator-api] Error retrieving translation.", ex);
-    }    
-  }
-
-  /**
-   * Fetches the JSON response, parses the JSON Response as an array of Strings
-   * and returns the result of the request as a String Array.
-   * 
-   * Overloaded to pass null as the JSON Property (assume only Strings instead of JSONObjects)
-   * 
-   * @param url The URL to query for a String response.
-   * @return The translated String[].
-   * @throws Exception on error.
-   */
-  protected static String[] retrieveStringArr(final URL url) throws Exception {
-    return retrieveStringArr(url,null);
-  }
-
-  /**
-   * Fetches the JSON response, parses the JSON Response, returns the result of the request as an array of integers.
-   * 
-   * @param url The URL to query for a String response.
-   * @return The translated String.
-   * @throws Exception on error.
-   */
-  protected static Integer[] retrieveIntArray(final URL url) throws Exception {
-    try {
-      final String response = retrieveResponse(url);    		
-      return jsonToIntArr(response);
-    } catch (Exception ex) {
-      throw new Exception("[yandex-translator-api] Error retrieving translation : " + ex.getMessage(), ex);
-    }
-  }
-
   protected static String retrievePropString(final URL url, final String jsonValProperty) throws Exception {
     final String response = retrieveResponse(url);
-    System.out.println("response: " + response);
     JSONObject jsonObj = (JSONObject)JSONValue.parse(response);
     return jsonObj.get(jsonValProperty).toString();
   }
   
+  /**
+   * Forms a request, sends it using the GET method and returns the contents of the array of strings
+   * with the given label, with multiple strings concatenated.
+   */
   protected static String retrievePropArrString(final URL url, final String jsonValProperty) throws Exception {
       final String response = retrieveResponse(url);
-      System.out.println("response: " + response);
       String[] translationArr = jsonObjValToStringArr(response, jsonValProperty);
       String combinedTranslations = "";
       for (String s : translationArr) {
@@ -189,36 +109,12 @@ public abstract class YandexTranslatorAPI {
       }
       return combinedTranslations.trim();
   }
-  
-  private static Integer[] jsonToIntArr(final String inputString) throws Exception {
-    final JSONArray jsonArr = (JSONArray)JSONValue.parse(inputString);
-    Integer[] intArr = new Integer[jsonArr.size()];
-    int i = 0;
-    for(Object obj : jsonArr) {
-      intArr[i] = ((Long)obj).intValue();
-      i++;
-    }
-    return intArr;
-  }
-
-  private static String jsonToString(final String inputString) throws Exception {
-    String json = (String)JSONValue.parse(inputString);
-    return json.toString();
-  }
 
   // Helper method to parse a JSONObject containing an array of Strings with the given label.
   private static String[] jsonObjValToStringArr(final String inputString, final String subObjPropertyName) throws Exception {
     JSONObject jsonObj = (JSONObject)JSONValue.parse(inputString);
     JSONArray jsonArr = (JSONArray) jsonObj.get(subObjPropertyName);
     return jsonArrToStringArr(jsonArr.toJSONString(), null);
-  }
-  
-  // Helper method to parse a JSONObject with nested JSONObjects.
-  // Retrieves the object with the given propertyName, then the value for the given propertyName within that object.
-  private static String jsonSubObjToString(final String inputString, final String propertyName, final String subObjPropertyName) throws Exception {
-    JSONObject jsonObj = (JSONObject)JSONValue.parse(inputString);
-    JSONObject dataObj = (JSONObject)JSONValue.parse(jsonObj.get(propertyName).toString());
-    return dataObj.get(subObjPropertyName).toString();
   }
 
   // Helper method to parse a JSONArray. Reads an array of JSONObjects and returns a String Array
@@ -257,6 +153,7 @@ public abstract class YandexTranslatorAPI {
       if (inputStream != null) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, ENCODING));
         while (null != (string = reader.readLine())) {
+          // TODO Can we remove this?
           // Need to strip the Unicode Zero-width Non-breaking Space. For some reason, the Microsoft AJAX
           // services prepend this to every response
           outputBuilder.append(string.replaceAll("\uFEFF", ""));
@@ -275,21 +172,4 @@ public abstract class YandexTranslatorAPI {
     }
   }
 
-  protected static String buildStringArrayParam(Object[] values) {
-    StringBuilder targetString = new StringBuilder("[\""); 
-    String value;
-    for(Object obj : values) {
-      if(obj!=null) {
-        value = obj.toString();
-        if(value.length()!=0) {
-          if(targetString.length()>2)
-            targetString.append(",\"");
-          targetString.append(value);
-          targetString.append("\"");
-        }
-      }
-    }
-    targetString.append("]");
-    return targetString.toString();
-  }
 }
