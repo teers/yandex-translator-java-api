@@ -27,7 +27,6 @@ public enum Language {
   GERMAN("de"),
   ITALIAN("it"),
   POLISH("pl"),
-  PORTUGUESE("pt"),
   ROMANIAN("ro"),
   RUSSIAN("ru"),
   SERBIAN("sr"),
