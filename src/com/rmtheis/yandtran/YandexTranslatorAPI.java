@@ -1,8 +1,5 @@
 /*
- * apertium-translator-java-api
- * 
- * Copyright 2011 Jonathan Griggs <jonathan.griggs at gmail.com>.
- * Copyright 2011 Robert Theis
+ * Copyright 2013 Robert Theis
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.robtheis.aptr;
+package com.rmtheis.yandtran;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 /**
- * Makes the generic Apertium API calls. Different service classes can then
+ * Makes the generic Yandex API calls. Different service classes can then
  * extend this to make the specific service calls.
  */
-public abstract class ApertiumTranslatorAPI {
+public abstract class YandexTranslatorAPI {
   //Encoding type
   protected static final String ENCODING = "UTF-8";
 
@@ -39,8 +38,8 @@ public abstract class ApertiumTranslatorAPI {
   private static String referrer;
 
   protected static final String PARAM_API_KEY = "key=",
-                                PARAM_LANG_PAIR = "&langpair=",
-                                PARAM_TEXT = "&q=";
+      PARAM_LANG_PAIR = "&lang=",
+      PARAM_TEXT = "&text=";
 
   /**
    * Sets the API key.
@@ -66,7 +65,7 @@ public abstract class ApertiumTranslatorAPI {
    * @throws Exception on error.
    */
   private static String retrieveResponse(final URL url) throws Exception {
-    final HttpURLConnection uc = (HttpURLConnection) url.openConnection();
+    final HttpsURLConnection uc = (HttpsURLConnection) url.openConnection();
     if(referrer!=null)
       uc.setRequestProperty("referer", referrer);
     uc.setRequestProperty("Content-Type","text/plain; charset=" + ENCODING);
@@ -77,7 +76,7 @@ public abstract class ApertiumTranslatorAPI {
       final int responseCode = uc.getResponseCode();
       final String result = inputStreamToString(uc.getInputStream());
       if(responseCode!=200) {
-        throw new Exception("Error from Apertium API: " + result);
+        throw new Exception("Error from Yandex API: " + result);
       }
       return result;
     } finally { 
@@ -99,7 +98,7 @@ public abstract class ApertiumTranslatorAPI {
       final String response = retrieveResponse(url);      
       return jsonToString(response);
     } catch (Exception ex) {
-      throw new Exception("[apertium-translator-api] Error retrieving translation : " + ex.getMessage(), ex);
+      throw new Exception("[yandex-translator-api] Error retrieving translation : " + ex.getMessage(), ex);
     }
   }
 
@@ -118,7 +117,7 @@ public abstract class ApertiumTranslatorAPI {
       final String response = retrieveResponse(url);    
       return jsonArrToStringArr(response,jsonProperty);
     } catch (Exception ex) {
-      throw new Exception("[apertium-translator-api] Error retrieving translation.", ex);
+      throw new Exception("[yandex-translator-api] Error retrieving translation.", ex);
     }
   }
 
@@ -136,13 +135,13 @@ public abstract class ApertiumTranslatorAPI {
   protected static String retrieveSubObjString(final URL url, final String jsonProperty, final String jsonSubObjProperty) throws Exception {
     try {
       final String response = retrieveResponse(url);
-      //System.out.println("response: " + response);
+      System.out.println("response: " + response);
       return jsonSubObjToString(response, jsonProperty, jsonSubObjProperty);
     } catch (Exception ex) {
-      throw new Exception("[apertium-translator-api] Error retrieving translation.", ex);
+      throw new Exception("[yandex-translator-api] Error retrieving translation.", ex);
     }    
   }
-  
+
   /**
    * Fetches the JSON response, parses the JSON Response as an array of Strings
    * and returns the result of the request as a String Array.
@@ -169,10 +168,28 @@ public abstract class ApertiumTranslatorAPI {
       final String response = retrieveResponse(url);    		
       return jsonToIntArr(response);
     } catch (Exception ex) {
-      throw new Exception("[apertium-translator-api] Error retrieving translation : " + ex.getMessage(), ex);
+      throw new Exception("[yandex-translator-api] Error retrieving translation : " + ex.getMessage(), ex);
     }
   }
 
+  protected static String retrievePropString(final URL url, final String jsonValProperty) throws Exception {
+    final String response = retrieveResponse(url);
+    System.out.println("response: " + response);
+    JSONObject jsonObj = (JSONObject)JSONValue.parse(response);
+    return jsonObj.get(jsonValProperty).toString();
+  }
+  
+  protected static String retrievePropArrString(final URL url, final String jsonValProperty) throws Exception {
+      final String response = retrieveResponse(url);
+      System.out.println("response: " + response);
+      String[] translationArr = jsonObjValToStringArr(response, jsonValProperty);
+      String combinedTranslations = "";
+      for (String s : translationArr) {
+        combinedTranslations += s;
+      }
+      return combinedTranslations.trim();
+  }
+  
   private static Integer[] jsonToIntArr(final String inputString) throws Exception {
     final JSONArray jsonArr = (JSONArray)JSONValue.parse(inputString);
     Integer[] intArr = new Integer[jsonArr.size()];
@@ -189,14 +206,21 @@ public abstract class ApertiumTranslatorAPI {
     return json.toString();
   }
 
+  // Helper method to parse a JSONObject containing an array of Strings with the given label.
+  private static String[] jsonObjValToStringArr(final String inputString, final String subObjPropertyName) throws Exception {
+    JSONObject jsonObj = (JSONObject)JSONValue.parse(inputString);
+    JSONArray jsonArr = (JSONArray) jsonObj.get(subObjPropertyName);
+    return jsonArrToStringArr(jsonArr.toJSONString(), null);
+  }
+  
   // Helper method to parse a JSONObject with nested JSONObjects.
   // Retrieves the object with the given propertyName, then the value for the given propertyName within that object.
   private static String jsonSubObjToString(final String inputString, final String propertyName, final String subObjPropertyName) throws Exception {
-    JSONObject jsonObj = (JSONObject)JSONValue.parse(inputString);   
+    JSONObject jsonObj = (JSONObject)JSONValue.parse(inputString);
     JSONObject dataObj = (JSONObject)JSONValue.parse(jsonObj.get(propertyName).toString());
     return dataObj.get(subObjPropertyName).toString();
   }
-  
+
   // Helper method to parse a JSONArray. Reads an array of JSONObjects and returns a String Array
   // containing the toString() of the desired property. If propertyName is null, just return the String value.
   private static String[] jsonArrToStringArr(final String inputString, final String propertyName) throws Exception {
@@ -239,7 +263,7 @@ public abstract class ApertiumTranslatorAPI {
         }
       }
     } catch (Exception ex) {
-      throw new Exception("[apertium-translator-api] Error reading translation stream.", ex);
+      throw new Exception("[yandex-translator-api] Error reading translation stream.", ex);
     }
     return outputBuilder.toString();
   }
@@ -247,7 +271,7 @@ public abstract class ApertiumTranslatorAPI {
   //Check if ready to make request, if not, throw a RuntimeException
   protected static void validateServiceState() throws Exception {
     if(apiKey==null||apiKey.length()<27) {
-      throw new RuntimeException("INVALID_API_KEY - Please set the API Key with your Apertium API Key");
+      throw new RuntimeException("INVALID_API_KEY - Please set the API Key with your Yandex API Key");
     }
   }
 
