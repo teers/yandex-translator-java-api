@@ -19,6 +19,7 @@ package com.rmtheis.yandtran.language;
  * Language - an enum of language codes supported by the Yandex API
  */
 public enum Language {
+  BELARUSIAN("be"),
   BULGARIAN("bg"),
   CZECH("cs"),
   ENGLISH("en"),
