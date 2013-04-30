@@ -20,8 +20,7 @@ import com.rmtheis.yandtran.translate.Translate;
 
 public class test {
     public static void main(String[] args) throws Exception {
-
-        Translate.setKey(ApiKeys.YANDEX_API_KEY);
+        Translate.setKey("[Put your API Key here]");
 
         String translatedText = Translate.execute("Hola, mundo!", Language.SPANISH, Language.ENGLISH);
 
