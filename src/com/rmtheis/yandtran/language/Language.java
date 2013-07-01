@@ -21,16 +21,21 @@ package com.rmtheis.yandtran.language;
 public enum Language {
   BELARUSIAN("be"),
   BULGARIAN("bg"),
+  CROATIAN("hr"),
   CZECH("cs"),
+  DANISH("da"),
+  DUTCH("nl"),
   ENGLISH("en"),
   FRENCH("fr"),
   GERMAN("de"),
   ITALIAN("it"),
   POLISH("pl"),
+  PORTUGUESE("pt"),
   ROMANIAN("ro"),
   RUSSIAN("ru"),
   SERBIAN("sr"),
   SPANISH("es"),
+  SWEDISH("sv"),
   TURKISH("tr"),
   UKRAINIAN("uk");
 
