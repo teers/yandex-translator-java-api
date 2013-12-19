@@ -34,6 +34,7 @@ public enum Language {
   FINNISH("fi"),
   FRENCH("fr"),
   GERMAN("de"),
+  GEORGIAN("ka"),
   GREEK("el"),
   HUNGARIAN("hu"),
   ITALIAN("it"),
