@@ -59,7 +59,7 @@ public final class Detect extends YandexTranslatorAPI {
     
     public static void main(String[] args) {
       try {
-        Translate.setKey(ApiKeys.YANDEX_API_KEY);
+        Translate.setKey(ApiKeys.MyKey);
         Language translation = Detect.execute("The quick brown fox jumps over the lazy dog.");
         System.out.println("Detected: " + translation.toString());
       } catch (Exception e) {

@@ -60,14 +60,15 @@ public final class Translate extends YandexTranslatorAPI {
     validateServiceState();
   }
   
-  public static void main(String[] args) {
+  public static String translate(String string, Language languageInput,Language languageOutput) {
     try {
-      Translate.setKey(ApiKeys.YANDEX_API_KEY);
-      String translation = Translate.execute("The quick brown fox jumps over the lazy dog.", Language.ENGLISH, Language.SPANISH);
-      System.out.println("Translation: " + translation);
+      Translate.setKey(ApiKeys.MyKey);
+      String translation = Translate.execute(string, languageInput, languageOutput);
+      return translation;
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
+      return e.toString();
     }
   }
 }
