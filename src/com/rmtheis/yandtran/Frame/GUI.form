@@ -21,6 +21,7 @@
       <alignmentX value="0.5"/>
       <alignmentY value="0.5"/>
       <minimumSize width="385" height="110"/>
+      <name value=""/>
       <preferredSize width="385" height="110"/>
     </properties>
     <clientProperties>
@@ -35,6 +36,7 @@
         </constraints>
         <properties>
           <maximumSize width="50" height="50"/>
+          <model/>
         </properties>
       </component>
       <component id="d3d4f" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
@@ -44,6 +46,7 @@
         </constraints>
         <properties>
           <maximumSize width="50" height="50"/>
+          <model/>
         </properties>
       </component>
       <component id="4abaf" class="javax.swing.JTextField" binding="textField1" default-binding="true">
@@ -96,7 +99,7 @@
           <text value="Целевой язык"/>
         </properties>
       </component>
-      <component id="93ed0" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="93ed0" class="javax.swing.JButton" binding="Button">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <forms top="0" left="2" bottom="0" right="2"/>
