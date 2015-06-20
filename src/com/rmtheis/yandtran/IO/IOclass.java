@@ -1,9 +1,6 @@
 package com.rmtheis.yandtran.IO;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * Created by l1fe on 20.06.2015.
@@ -15,9 +12,11 @@ public class IOclass {
             if (!file.exists()){
                 file.createNewFile();
             }
-            OutputStream out = new FileOutputStream(file);
+            FileWriter out = new FileWriter(file);
+           // OutputStream out = new FileOutputStream(file);
             String string = info.toString()+"\n";
-            out.write(string.getBytes());
+            out.write(string);
+            out.close();
         }
         catch (IOException e){
              e.printStackTrace();

@@ -30,6 +30,6 @@ public class InfoClass {
 
     @Override
     public String toString(){
-        return date.toString()+" исходный текст: "+inputText + " переведенный текс: " + outputText;
+        return date.toString()+" исходный текст: "+inputText + " переведенный текст: " + outputText;
     }
 }
