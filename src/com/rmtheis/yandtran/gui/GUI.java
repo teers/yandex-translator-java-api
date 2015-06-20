@@ -1,12 +1,13 @@
-package com.rmtheis.yandtran.Frame;
+package com.rmtheis.yandtran.gui;
 
+import com.rmtheis.yandtran.clipboard.GetClipboard;
 import com.rmtheis.yandtran.detect.Detect;
 import com.rmtheis.yandtran.language.Language;
 import com.rmtheis.yandtran.language.LanguageForGUI;
 import com.rmtheis.yandtran.translate.Translate;
 
 import javax.swing.*;
-import javax.swing.plaf.synth.SynthButtonUI;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -21,18 +22,22 @@ public class GUI {
     private JButton Button;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextArea textField1;
+    private JTextArea textField2;
+    private JButton button1;
 
     public GUI() {
         //set default
+        javax.swing.border.Border border = BorderFactory.createLineBorder(Color.BLACK);
+        textField1.setBorder(border);
+        textField2.setBorder(border);
         input = Language.RUSSIAN;
-        output = Language.ENGLISH;
+        output = Language.RUSSIAN;
         comboBox1.setModel(new DefaultComboBoxModel(LanguageForGUI.values()));
         comboBox2.setModel(new DefaultComboBoxModel(LanguageForGUI.values()));
         comboBox1.addItem("Autodetect");
         comboBox1.setSelectedItem("Autodetect");
-        comboBox2.setSelectedItem(LanguageForGUI.en);
+        comboBox2.setSelectedItem(LanguageForGUI.ru);
         Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,6 +61,12 @@ public class GUI {
                 if (e.getStateChange()==ItemEvent.SELECTED){
                     output = Language.valueOf(e.getItem().toString());
                 }
+            }
+        });
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    textField1.setText(GetClipboard.getClipBoard());
             }
         });
     }
