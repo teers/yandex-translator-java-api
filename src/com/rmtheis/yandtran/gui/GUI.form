@@ -5,9 +5,7 @@
     <rowspec value="center:40px:noGrow"/>
     <rowspec value="center:max(d;35px):noGrow"/>
     <colspec value="fill:max(d;120px):grow"/>
-    <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
-    <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:max(d;52px):grow"/>
     <colspec value="left:8dlu:noGrow"/>
     <colspec value="left:d:noGrow"/>
@@ -30,22 +28,24 @@
     <children>
       <component id="e984c" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
           <forms top="0" left="5" bottom="5" right="5"/>
         </constraints>
         <properties>
           <maximumSize width="50" height="50"/>
           <model/>
+          <toolTipText value="Исходный язык"/>
         </properties>
       </component>
       <component id="d3d4f" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
         <constraints>
-          <grid row="2" column="7" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
           <forms top="0" left="5" bottom="5" right="5"/>
         </constraints>
         <properties>
           <maximumSize width="50" height="50"/>
           <model/>
+          <toolTipText value="Целевой язык"/>
         </properties>
       </component>
       <component id="2f0ef" class="javax.swing.JLabel">
@@ -61,7 +61,7 @@
       </component>
       <component id="c86f3" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms top="0" left="5" bottom="0" right="5" defaultalign-horz="false"/>
         </constraints>
         <properties>
@@ -70,22 +70,26 @@
       </component>
       <component id="93ed0" class="javax.swing.JButton" binding="Button">
         <constraints>
-          <grid row="1" column="4" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <forms top="0" left="2" bottom="0" right="2"/>
         </constraints>
         <properties>
           <label value="Перевести"/>
           <minimumSize width="100" height="31"/>
           <text value="Перевести"/>
+          <toolTipText value="Нажмите для перевода"/>
         </properties>
       </component>
       <scrollpane id="ed856">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <forms top="5" left="5" bottom="5" right="5" defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
           <horizontalScrollBarPolicy value="31"/>
+          <minimumSize width="17" height="5"/>
+          <preferredSize width="173" height="30"/>
+          <toolTipText value=""/>
           <verticalScrollBarPolicy value="20"/>
         </properties>
         <border type="none"/>
@@ -96,20 +100,23 @@
               <dragEnabled value="false"/>
               <lineWrap value="true"/>
               <margin top="0" left="0" bottom="0" right="0"/>
-              <minimumSize width="173" height="30"/>
-              <preferredSize width="173" height="30"/>
+              <minimumSize width="173" height="16"/>
+              <preferredSize width="173" height="16"/>
               <text value=""/>
+              <toolTipText value="Исходный текст"/>
             </properties>
           </component>
         </children>
       </scrollpane>
       <scrollpane id="4d35c">
         <constraints>
-          <grid row="0" column="5" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="3" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <forms top="5" left="5" bottom="5" right="5" defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
           <horizontalScrollBarPolicy value="31"/>
+          <preferredSize width="194" height="30"/>
+          <toolTipText value=""/>
           <verticalScrollBarPolicy value="20"/>
         </properties>
         <border type="none"/>
@@ -120,13 +127,14 @@
               <editable value="false"/>
               <focusable value="true"/>
               <lineWrap value="true"/>
+              <toolTipText value="Результат"/>
             </properties>
           </component>
         </children>
       </scrollpane>
       <component id="a7cf3" class="javax.swing.JButton" binding="button1" default-binding="true">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms defaultalign-horz="false"/>
         </constraints>
         <properties>
@@ -136,6 +144,7 @@
           <minimumSize width="30" height="35"/>
           <preferredSize width="30" height="35"/>
           <text value=""/>
+          <toolTipText value="Нажмите. чтобы скопировать из буфера обмена"/>
         </properties>
       </component>
     </children>
