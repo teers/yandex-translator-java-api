@@ -1,5 +1,7 @@
 package com.rmtheis.yandtran.gui;
 
+import com.rmtheis.yandtran.IO.IOclass;
+import com.rmtheis.yandtran.IO.InfoClass;
 import com.rmtheis.yandtran.clipboard.GetClipboard;
 import com.rmtheis.yandtran.detect.Detect;
 import com.rmtheis.yandtran.language.Language;
@@ -12,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Date;
 
 /**
  * Created by l1fee on 12.06.15.
@@ -45,6 +48,11 @@ public class GUI {
                     input = Detect.detect(textField1.getText());
                 }
            textField2.setText(Translate.translate(textField1.getText(), input, output));
+                InfoClass test = new InfoClass();
+                test.setInputText(textField1.getText());
+                test.setOutputText(textField2.getText());
+                test.setDate(new Date());
+                IOclass.writeHistory(test);
         }
         });
         comboBox1.addItemListener(new ItemListener() {
