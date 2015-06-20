@@ -12,15 +12,25 @@ public class IOclass {
             if (!file.exists()){
                 file.createNewFile();
             }
-            FileWriter out = new FileWriter(file);
-           // OutputStream out = new FileOutputStream(file);
-            String string = info.toString()+"\n";
-            out.write(string);
+            Writer out = new OutputStreamWriter(new FileOutputStream(file,true));
+            out.write(info.toString()+"\n");
             out.close();
         }
         catch (IOException e){
              e.printStackTrace();
         }
+    }
+    public InfoClass[] readFile(){
+        InfoClass[] result = new InfoClass[10];
+        try {
+            Reader in = new InputStreamReader(new FileInputStream(file));
+
+            in.close();
+        }
+        catch (IOException  e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }
